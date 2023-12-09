@@ -1,46 +1,45 @@
-#include <iostream>
-#include <vector>
-//
+#include<iostream>
+#include<algorithm>
+#include<deque>
+using namespace std;
+
+#define MAX 100000
+
+int N, K, x;
+int check[100001];
+deque<pair<int, int>> dq; // <위치, 시간>
+
 int main()
 {
-    std::vector<std::vector<int>> A{
-        {1,3,2,5},
-        {7,6,3,5},
-        {3,0,3,5}
-    };
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
-    std::vector<std::vector<int>> B{
-        {2,1,2},
-        {7,8,1},
-        {5,5,1},
-        {3,0,3}
-    };
+	cin >> N >> K;
 
-    std::vector<std::vector<int>> C;
-    C.assign(4,std::vector<int>(4,0));
+	dq.push_back({ N,0 });
 
-    for(int i = 0; i < 3; i++)
-    {
-        for(int j = 0; j < 3; j++)
-        {
-            int res = 0;
-            for (int k = 0; k < 4; k++)
-            {
-                /* code */
-                res += A[i][k] * B[k][j];
-            }
-            C[i][j] = res;
-        }
-    }
+	while (!dq.empty())
+	{
+		int now = dq.front().first;
+		int time = dq.front().second;
+		dq.pop_front();
 
-    for(int i = 0; i < 3; i++)
-    {
-        for(int j = 0; j < 3; j++)
-        {
-            std::cout<<C[i][j]<<" ";
-        }
-        std::cout<<'\n';
-    }
+		check[now] = true;
 
-    return 0;
+		if (now == K)
+		{
+			cout << time;
+			break;
+		}
+
+		if (now - 1 >= 0 && !check[now - 1])
+			dq.push_back({ now - 1,time + 1});
+
+		if (now + 1 <= MAX && !check[now + 1])
+			dq.push_back({ now + 1,time + 1 });
+
+		if (2 * now <= MAX && !check[2 * now])
+			dq.push_front({ 2 * now,time});
+	}
+
 }
