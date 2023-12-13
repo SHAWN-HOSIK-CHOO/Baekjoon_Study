@@ -84,6 +84,7 @@ int main()
 
     for(int i = 1; i <= N; i++)
     {
+        //TODO: 중요!!!! Find_Circle_DFS를 한번 하고 오면 visited[i]는 0이 아닌 상태이다. 따라서 해당 if문은 실행되지 않는다.
         if(visited[i] == 0)
         {
             visited.clear();
