@@ -1,24 +1,24 @@
-/*
-    출처 :  https://yabmoons.tistory.com/187
-*/
 #include <iostream>
+#include <queue>
 #include <vector>
 #include <algorithm>
 
-int N, M, ans = 0;
-std::vector<int> parent;
+long long ans = 0;
+int V, E;
+std::vector<int> Parent;
 std::vector<std::pair<int,std::pair<int,int>>> T;
 
 int Find_Parent(int x)
 {
-    if(parent[x] == x)
+    if(Parent[x] == x)
     {
         return x;
     }
     else
     {
-        return Find_Parent(parent[x]);
+        return Find_Parent(Parent[x]);
     }
+
 }
 
 void Union(int x, int y)
@@ -28,7 +28,7 @@ void Union(int x, int y)
 
     if(x != y)
     {
-        parent[y] = x;
+        Parent[y] = x;
     }
 }
 
@@ -40,9 +40,9 @@ bool SameParent(int x, int y)
     return (x == y);
 }
 
-void mst() // kruskal
+void Kruskal()
 {
-    for(int i = 0; i < M; i++)
+    for(int i = 0; i < E; i++)
     {
         if(!SameParent(T[i].second.first,T[i].second.second))
         {
@@ -54,27 +54,25 @@ void mst() // kruskal
 
 int main()
 {
-    std::cin>>N>>M;
+    std::cin>>V>>E;
 
-    parent.assign(N + 1, 0);
-
-    for(int i = 1; i <= N; i++)
+    Parent.assign(V + 1, 0);
+    for(int i = 0; i <= V; i++)
     {
-        parent[i] = i;
+        Parent[i] = i;
     }
 
-    for (int i = 0; i < M; i++)
+    for(int i = 0; i < E; i++)
     {
-        /* code */
         int a,b,c;
         std::cin>>a>>b>>c;
 
         T.push_back({c,{a,b}});
     }
-    
+
     std::sort(T.begin(),T.end());
 
-    mst();
+    Kruskal();
 
     std::cout<<ans;
 
