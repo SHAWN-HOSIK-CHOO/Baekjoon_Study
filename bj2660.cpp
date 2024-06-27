@@ -10,13 +10,13 @@ int N;
 std::vector<std::vector<int>> g_Graph;
 std::vector<pii> ans;
 std::queue<pii> q;
-std::set<int> g_Visited;
+std::set<int> visited;
 std::vector<int> chairmanCandidates;
 
 void BFS(int startNode)
 {
     int total = 0;
-    g_Visited.insert(startNode);
+    visited.insert(startNode);
     q.push({startNode, 0});
 
     while (!q.empty())
@@ -31,10 +31,10 @@ void BFS(int startNode)
         {
             int nextNode = g_Graph[curNode][i];
 
-            if(g_Visited.find(nextNode) != g_Visited.end())
+            if(visited.find(nextNode) != visited.end())
                 continue;
 
-            g_Visited.insert(nextNode);
+            visited.insert(nextNode);
             q.push({nextNode, curCost + 1});
             //std::cout<<"queue push on :"<<startNode<<" , with cost "<< curCost + 1<<'\n';
         }
@@ -62,7 +62,7 @@ int main()
 
     for(int i = 1; i <= N; i++)
     {
-        g_Visited.clear();
+        visited.clear();
 
         BFS(i);
     }
