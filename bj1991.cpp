@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<std::pair<char,char>> tree;
+std::vector<std::pair<char,char>> SegTree;
 
 void Preorder(char val)
 {
@@ -12,8 +12,8 @@ void Preorder(char val)
     }
 
     std::cout<<val;
-    Preorder(tree[val - 'A'].first);
-    Preorder(tree[val - 'A'].second);
+    Preorder(SegTree[val - 'A'].first);
+    Preorder(SegTree[val - 'A'].second);
 }
 
 void Inorder(char val)
@@ -23,9 +23,9 @@ void Inorder(char val)
         return;
     }
 
-    Inorder(tree[val - 'A'].first);
+    Inorder(SegTree[val - 'A'].first);
     std::cout<<val;
-    Inorder(tree[val - 'A'].second);
+    Inorder(SegTree[val - 'A'].second);
 }
 
 void Postorder(char val)
@@ -35,8 +35,8 @@ void Postorder(char val)
         return;
     }
 
-    Postorder(tree[val - 'A'].first);
-    Postorder(tree[val - 'A'].second);
+    Postorder(SegTree[val - 'A'].first);
+    Postorder(SegTree[val - 'A'].second);
     std::cout<<val;
 }
 
@@ -47,13 +47,13 @@ int main()
 
     std::cin>>N;
 
-    tree.assign(N,std::pair<char,char>());
+    SegTree.assign(N,std::pair<char,char>());
 
     for(int i = 0; i < N; i++)
     {
         std::cin>>temp1>>temp2>>temp3;
-        tree[temp1 - 'A'].first = temp2;
-        tree[temp1 - 'A'].second = temp3;
+        SegTree[temp1 - 'A'].first = temp2;
+        SegTree[temp1 - 'A'].second = temp3;
     }
 
     Preorder('A');

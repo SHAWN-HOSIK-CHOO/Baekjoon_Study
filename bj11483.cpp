@@ -7,13 +7,13 @@
 #include <queue>
 
 int N, M;
-std::vector<std::vector<int>> tree;
+std::vector<std::vector<int>> SegTree;
 std::vector<int> depth;
 std::vector<std::vector<int>> parent;
 
 void Depth(int a)
 {
-    for(auto i : tree[a])
+    for(auto i : SegTree[a])
     {
         if(depth[i] == 0)
         {
@@ -80,7 +80,7 @@ int main()
     std::cout.tie(nullptr);
 
     std::cin>>N;
-    tree.assign(N + 1, std::vector<int>());
+    SegTree.assign(N + 1, std::vector<int>());
     depth.assign(N + 1, 0);
     parent.assign(N + 1, std::vector<int>(17,0));
 
@@ -93,8 +93,8 @@ int main()
         int a, b;
         std::cin>>a>>b;
 
-        tree[a].push_back(b);
-        tree[b].push_back(a);
+        SegTree[a].push_back(b);
+        SegTree[b].push_back(a);
     }
 
     Depth(1);

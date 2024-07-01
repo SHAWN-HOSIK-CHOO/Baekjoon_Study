@@ -6,7 +6,7 @@
 #define max_size 987654321
 
 int N, K;
-std::vector<std::vector<std::pair<int,int>>> tree;
+std::vector<std::vector<std::pair<int,int>>> SegTree;
 std::vector<std::vector<int>> sparse;
 std::vector<std::vector<int>> minL;
 std::vector<std::vector<int>> maxL;
@@ -19,11 +19,11 @@ void dfs(int parent, int cur, int dep, int road_length)
     minL[cur][0] = road_length;
     maxL[cur][0] = road_length;
 
-    for(int i = 0; i < tree[cur].size(); i++)
+    for(int i = 0; i < SegTree[cur].size(); i++)
     {
-        if(tree[cur][i].first != parent)
+        if(SegTree[cur][i].first != parent)
         {
-            dfs(cur, tree[cur][i].first, dep + 1, tree[cur][i].second);
+            dfs(cur, SegTree[cur][i].first, dep + 1, SegTree[cur][i].second);
         }
     }
     return;
@@ -103,7 +103,7 @@ int main()
     std::cout.tie(nullptr);
 
     std::cin>>N;
-    tree.assign(N + 1, std::vector<std::pair<int,int>>());
+    SegTree.assign(N + 1, std::vector<std::pair<int,int>>());
     sparse.assign(N + 1, std::vector<int>(20, 0));
     minL.assign(N + 1, std::vector<int>(20, 1000001));
     maxL.assign(N + 1, std::vector<int>(20, 0));
@@ -114,8 +114,8 @@ int main()
         int a, b, c;
         std::cin>>a>>b>>c;
 
-        tree[a].push_back({b, c});
-        tree[b].push_back({a, c});
+        SegTree[a].push_back({b, c});
+        SegTree[b].push_back({a, c});
     }
 
     dfs(0,1,0,0);

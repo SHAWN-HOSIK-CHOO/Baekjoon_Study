@@ -7,7 +7,7 @@
 #include <queue>
 
 int N, M;
-std::vector<std::vector<int>> tree;
+std::vector<std::vector<int>> SegTree;
 std::vector<bool> visited;
 std::vector<int> parent;
 std::vector<int> depth;
@@ -37,7 +37,7 @@ int LCA(int a, int b)
 int main()
 {
     std::cin>>N;
-    tree.assign(N + 1, std::vector<int>());
+    SegTree.assign(N + 1, std::vector<int>());
     visited.assign(N + 1, false);
     parent.assign(N + 1, 0);
     depth.assign(N + 1, 0);
@@ -47,8 +47,8 @@ int main()
         int a, b;
         std::cin>>a>>b;
 
-        tree[a].push_back(b);
-        tree[b].push_back(a);
+        SegTree[a].push_back(b);
+        SegTree[b].push_back(a);
     }
 
     q.push(1);
@@ -60,14 +60,14 @@ int main()
         int cur = q.front();
         q.pop();
 
-        for(int i = 0; i < tree[cur].size(); i++)
+        for(int i = 0; i < SegTree[cur].size(); i++)
         {
-            if(!visited[tree[cur][i]])
+            if(!visited[SegTree[cur][i]])
             {
-                depth[tree[cur][i]] = depth[cur] + 1;
-                visited[tree[cur][i]] = true;
-                parent[tree[cur][i]] = cur;
-                q.push(tree[cur][i]);
+                depth[SegTree[cur][i]] = depth[cur] + 1;
+                visited[SegTree[cur][i]] = true;
+                parent[SegTree[cur][i]] = cur;
+                q.push(SegTree[cur][i]);
             }
         }
     }

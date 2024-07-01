@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<std::pair<int,int>> tree;
+std::vector<std::pair<int,int>> SegTree;
 std::vector<std::vector<int>> grid;
 std::vector<int> nodeCount;
 int curIndex = 1;
@@ -18,7 +18,7 @@ void Inodrer(int cur, int level)
         return;
     }
 
-    Inodrer(tree[cur].first, level + 1);
+    Inodrer(SegTree[cur].first, level + 1);
 
     if(grid.size() <= level)
     {
@@ -26,7 +26,7 @@ void Inodrer(int cur, int level)
     }
     grid[level].push_back(curIndex++);
 
-    Inodrer(tree[cur].second, level + 1);
+    Inodrer(SegTree[cur].second, level + 1);
 }
 
 int main()
@@ -35,14 +35,14 @@ int main()
 
     std::cin>>N;
 
-    tree.assign(N+1,std::pair<int,int>());
+    SegTree.assign(N+1,std::pair<int,int>());
     nodeCount.assign(N+1,0);
 
     for(int i = 0; i < N; i++)
     {
         std::cin>>temp1>>temp2>>temp3;
 
-        tree[temp1] = std::make_pair(temp2,temp3);
+        SegTree[temp1] = std::make_pair(temp2,temp3);
         if(temp2 != -1)
         {
             nodeCount[temp2]++;

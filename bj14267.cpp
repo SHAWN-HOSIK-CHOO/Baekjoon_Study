@@ -6,12 +6,12 @@
 #include <algorithm>
 
 int n, m, root = 0;
-std::vector<std::vector<int>> tree;
+std::vector<std::vector<int>> SegTree;
 std::vector<int> good_boy;
 
 void Search_Dogs(int node)
 {
-    for(int _this : tree[node])
+    for(int _this : SegTree[node])
     {
         good_boy[_this] += good_boy[node];
         Search_Dogs(_this);
@@ -21,7 +21,7 @@ void Search_Dogs(int node)
 int main()
 {
     std::cin>>n>>m;
-    tree.assign(n + 1, std::vector<int>());
+    SegTree.assign(n + 1, std::vector<int>());
     good_boy.assign(n + 1, 0);
 
     for(int i = 1; i <= n; i++) // 1은 항상 사장
@@ -32,7 +32,7 @@ int main()
         if(tmp == -1)
             continue;
 
-        tree[tmp].push_back(i);
+        SegTree[tmp].push_back(i);
     }
 
     int who, how_much;

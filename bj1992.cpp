@@ -3,7 +3,7 @@
 #include <string>
 
 int N;
-std::vector<std::vector<int>> tree;
+std::vector<std::vector<int>> SegTree;
 
 void TreePartition(int x, int y, int size)
 {
@@ -11,7 +11,7 @@ void TreePartition(int x, int y, int size)
     {
         for(int j = y; j < y + size; j++)
         {
-            if(tree[i][j] != tree[x][y])
+            if(SegTree[i][j] != SegTree[x][y])
             {
                 std::cout<<"(";
                 TreePartition(x, y, size / 2);
@@ -23,13 +23,13 @@ void TreePartition(int x, int y, int size)
             }
         }
     }
-    std::cout<<tree[x][y];
+    std::cout<<SegTree[x][y];
 }
 
 int main()
 {
     std::cin>>N;
-    tree.assign(N + 1, std::vector<int>(N + 1, 0));
+    SegTree.assign(N + 1, std::vector<int>(N + 1, 0));
 
     std::string tmp;
     for(int i = 0; i < N; i++)
@@ -37,7 +37,7 @@ int main()
         std::cin>>tmp;
         for(int j = 0; j < tmp.size(); j++)
         {
-            tree[i][j] = tmp[j] - '0';
+            SegTree[i][j] = tmp[j] - '0';
         }
     }
 
